@@ -1,0 +1,1 @@
+gcc -o GCP gcp_prefs.c gcp_prefs_gui.c -lauto -D__USE_INLINE__ -gstabs

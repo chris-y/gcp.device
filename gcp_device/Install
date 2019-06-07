@@ -1,0 +1,62 @@
+(welcome)
+
+(set @default-dest "Devs:")
+
+(copylib
+	(prompt "Copying gcp.device")
+	(help @copylib-help)
+	(source "Devs/gcp.device")
+	(dest @default-dest)
+	(confirm)
+)
+
+(copyfiles
+	(prompt "Copying GCP Prefs")
+	(help @copyfiles-help)
+	(source "Prefs/GCP")
+	(dest "SYS:Prefs")
+	(confirm)
+	(infos)
+)
+
+(copyfiles
+	(prompt "Copying GCP0: mountlist")
+	(help @copyfiles-help)
+	(source "Devs/DOSDrivers/GCP0")
+	(dest "Devs:DOSDrivers")
+	(confirm)
+	(infos)
+)
+
+(copyfiles
+	(prompt "Copying gcp_device.guide")
+	(help @copyfiles-help)
+	(source "gcp_device.guide")
+	(dest "SYS:Documentation/Devs")
+	(confirm)
+	(infos)
+)
+
+(set #has-auth (exists "ENVARC:gcp.device/token"))
+	
+(if (= #has-auth 0)
+	(
+		(message "GCP Prefs will now run to link the device "
+				"to your Google account, and set which printer you want to use.")
+		(working "Please authenticate and set your Google Cloud Print printer")
+		(run "Prefs/GCP" (safe))
+		
+		(message "Printer Prefs will now run, you need to set the following:\n\n"
+				"Printer driver: PostScript\n"
+				"Port device: gcp.device\n\n"
+				"These can be set on a printer.device unit other than 0, however "
+				"most Amiga software only uses unit 0 and doesn't ask, "
+				"so it is not recommended.")
+		(working "Please set the printer driver to PostScript and the port device to gcp.device")
+		(run "SYS:Prefs/Printer" (safe))
+		
+		(message "You may need to modify some settings in PrinterPS Prefs "
+				"as the page size and colour options are likely to be wrong.")
+		(run "SYS:Prefs/PrinterPS" (safe))
+	)
+)

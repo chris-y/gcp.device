@@ -1,0 +1,113 @@
+@database "gcp.device"
+@wordwrap
+
+@node main "gcp.device"
+gcp.device
+Google Cloud Print device driver
+
+@{"Introduction" link intro}
+@{"Installation" link install}
+@{"Usage       " link usage}
+@{"History     " link history}
+@{"Future      " link future}
+@{"Contact     " link contact}
+
+@endnode
+
+@node intro "Introduction"
+Google Cloud Print allows printing to any printer, no matter where it is located.  This is achieved by connecting the printer to a Google account, from where it can be shared with other accounts.  Connecting a printer to Google Cloud Print requires running some "connector" software on the computer hosting the printer.  For Windows and OS X, this can be Google Chrome, although a standalone connector is also available and additionally works on Linux.  Some new printers have native support for Google Cloud Print and do not need a separate connector.
+
+gcp.device enables the Amiga to print to any of these cloud-connected printers, using the PostScript printer driver (Google's preferred format is PDF, but we don't have a PDF printer driver yet).
+
+The only requirement is that the printer is connected to or shared with the Google account you authenticate gcp.device with.
+
+For Amiga applications, the document to be printed goes through the following steps:
+@{jcenter}
+@{b}Application@{ub}
+|
+@{b}printer.device@{ub}
+print interface
+|
+@{b}PostScript@{ub}
+printer driver
+|
+@{b}gcp.device@{ub}
+port device
+|
+@{b}Google Cloud Print@{ub}
+print server
+|
+@{b}Google Cloud connector@{ub}
+|
+@{b}Printer@{ub}
+@{jleft}
+
+@endnode
+
+@node install "Installation"
+Run the Install script.
+
+If this is the first time it has been used, it will launch the prefs program and request authentication with Google.  It will also take you through modifying Printer Prefs.
+
+To authenticate:
+Visit the web page in a web browser on this or another device and enter the code shown.
+
+Within the GCP prefs program:
+Select which printer you want to use and click "Save".
+You can define different printers for different unit numbers if you have more than one.
+There is also a "Save to Google Drive" printer that everybody has access to, which will allow documents to be "printed" to Google Drive.
+
+Open Printer Prefs
+Set the printer driver to PostScript
+Set Port Device to gcp.device
+Set Port Unit to 0 (or other unit defined earlier)
+
+Settings for the PostScript driver can be managed within PrinterPS Prefs.  Please check these, as the paper size and colour/greyscale options are likely to be wrong!
+
+@{u}Manual installation@{uu}
+(for those who don't trust install scripts)
+
+Copy gcp.device to Devs:
+Copy GCP0 to Devs:DosDrivers
+Copy GCP to SYS:Prefs
+
+You will need to authenticate and run GCP manually as per above.
+
+@endnode
+
+@node usage "Usage"
+Just print!
+
+You can toggle the printer in GCP Prefs before printing if you want to print
+to a different printer, as most Amiga software is dumb and will only print to
+printer.device unit 0.  Alternatively, you can assign printers to different
+units and toggle the gcp.device unit number in Printer Prefs.
+
+NB: When printing you may be prompted to re-authenticate with Google
+if the token has been deleted or revoked.
+
+You can also copy PostScript and PDF files directly to GCP0: to print them.
+
+@endnode
+
+@node contact "Contact"
+Chris Young <chris@unsatisfactorysoftware.co.uk>
+
+The icon is by Ken Lester.
+@endnode
+
+@node history "History"
+v1.4 (06.05.2017)
+first public release
+@endnode
+
+@node future "TODO"
+Mostly just notes to self!
+
+Print job tickets (duplex support)
+Job list
+Show printer status in GUI
+Progress notifications ?
+Set temp path
+Intelligent filetyping to enable more document types to be copied directly to GCP0:
+@endnode

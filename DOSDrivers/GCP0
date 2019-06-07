@@ -1,0 +1,11 @@
+/* $VER: GCP0 1.1 (17.4.2017) */
+
+EHandler  = L:Port-Handler
+Priority  = 5
+StackSize = 2000
+GlobVec   = -1
+Device    = gcp.device
+Unit      = 0
+Flags     = 0
+Control   = "PAR"
+
